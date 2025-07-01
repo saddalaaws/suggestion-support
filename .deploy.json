@@ -1,0 +1,12 @@
+{
+    "checkout": {
+        "devops-tools": "1.2",
+        "terraform-modules": "1.1"
+    },
+    "packages": {
+        "uv": "0.7.6"
+    },
+    "packages:sha256": {
+        "uv": "0c5f0935bba35359150774fc5876d72947b863b8173c94dda776e6d88014a0df"
+    }
+}

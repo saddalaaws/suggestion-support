@@ -1,0 +1,86 @@
+[tool.isort]
+include_trailing_comma = true
+multi_line_output = 3
+
+[tool.pip-tools]
+# Not yet enabled due to platform issues (Windows vs Linux hashes) and parsing problems (pip-compile itself as well as pkg_resources)
+generate-hashes = false
+
+[tool.pylint.design]
+# Workaround https://github.com/pylint-dev/pylint/issues/9101
+max-parents = 10
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = "builtins.BaseException"
+
+[tool.pylint.master]
+init-hook = "import os, sys; sys.path.append(os.path.abspath('src')); sys.path.append(os.path.abspath(os.path.join('src', 'lambda_functions', 'configure_jobs')));"
+
+[tool.pylint."messages control"]
+# E1101 = no-member to avoid false positives when using Pydantic ... = Field()
+disable = ["fixme", "E1101"]
+
+[tool.pylint.similarities]
+min-similarity-lines = 40
+
+[tool.pylint.spelling]
+spelling-dict = "en_US"
+spelling-private-dict-file = ".dictionary"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+# "DTZ", "ISC", "T20", "PIE", "Q", "SIM", "RET", "INP", "PT", "PTH", "ARG"
+ignore = [
+  "A003",
+  "ARG002",
+  "B009",
+  "B010",
+  "B905",
+  "EXE002",
+  "G001",
+  "I001",
+  "PT009",
+  "S101",
+  "S108",
+  "S301",
+  "S324",
+  "S603"
+]
+select = [
+  "A",
+  "B",
+  "C4",
+  "C90",
+  "E",
+  "EXE",
+  "F",
+  "G",
+  "I",
+  "N",
+  "S",
+  "T10",
+  "TID",
+  "TD",
+  "W",
+  "YTT"
+]
+
+[tool.skjold]
+sources = ["pyup", "gemnasium"]
+
+[tool.typos.default.extend-words]
+BA = "BA"  # JIRA Prefix
+braket = "braket"  # AWS Service Name
+
+[tool.typos.type.csv]
+check-file = false
+extend-glob = ["*.csv"]
+
+[tool.typos.type.json]
+check-file = false
+extend-glob = ["*.json"]
+
+[tool.yapf]
+based_on_style = "pep8"

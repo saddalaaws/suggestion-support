@@ -1,0 +1,10 @@
+*.egg-info
+__pycache__
+deployment_files
+docs/build
+src/build/build/
+src/infrastructure/**/.parameters*
+src/infrastructure/**/.terraform
+src/infrastructure/**/.terraform.lock.hcl
+src/infrastructure/**/LOCAL.admin.auto.tfvars
+src/infrastructure/**/LOCAL_backend.tf

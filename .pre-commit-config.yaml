@@ -1,0 +1,184 @@
+repos:
+
+# ------------------------------------------------
+# PRE-COMMIT SELF CHECK CHECKS
+# ------------------------------------------------
+
+- repo: meta
+  hooks:
+  - id: check-hooks-apply
+  - id: check-useless-excludes
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b  # frozen: v5.0.0
+  hooks:
+  - id: check-added-large-files
+    args:
+    - --maxkb=10000
+  - id: check-ast
+  - id: check-builtin-literals
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-yaml
+  - id: debug-statements
+  - id: double-quote-string-fixer
+  - id: end-of-file-fixer
+  - id: file-contents-sorter
+    files: ^(\.gitignore|\.dictionary)$
+  - id: fix-byte-order-marker
+  - id: fix-encoding-pragma
+  - id: mixed-line-ending
+    args:
+    - --fix=lf
+  - id: no-commit-to-branch
+    args:
+    - --branch=main
+  - id: pretty-format-json
+    args:
+    - --autofix
+    - --indent=4
+    - --no-ensure-ascii
+  - id: trailing-whitespace
+
+- repo: https://github.com/pre-commit/pygrep-hooks
+  rev: 3a6eb0fadf60b3cccfd80bad9dbb6fae7e47b316   # frozen: v1.10.0
+  hooks:
+  - id: python-check-blanket-noqa
+  - id: python-check-mock-methods
+  - id: python-no-eval
+  - id: python-no-log-warn
+  - id: python-use-type-annotations
+  - id: text-unicode-replacement-char
+
+# ------------------------------------------------
+# FORMATTING CHECKS
+# ------------------------------------------------
+
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: a6273196190bb0f68caf1dc68073cf62c719f725  # frozen: v2.14.0
+  hooks:
+  - id: pretty-format-toml
+    args: [--autofix]
+  - id: pretty-format-yaml
+    args: [--autofix]
+
+- repo: https://github.com/PyCQA/isort
+  rev: c8ab4a5b21bac924d106e3103dd7c979fdd0f9bc  # frozen: 6.0.1
+  hooks:
+  - id: isort
+    additional_dependencies:
+    - toml
+
+- repo: https://github.com/google/yapf
+  rev: 5cb90cb4973511e03984f07913ad696d54b0ea00  # frozen: v0.43.0
+  hooks:
+  - id: yapf
+    additional_dependencies:
+    - toml
+
+#- repo: https://github.com/myint/docformatter
+#  rev: dfefe062799848234b4cd60b04aa633c0608025e   # frozen: v1.7.5
+#  hooks:
+#  - id: docformatter
+#    args:
+#    - --in-place
+
+- repo: https://github.com/crate-ci/typos
+  rev: 0ebd3e2da3cef03102eb36b1f930b7961c1adfd4  # frozen: v1
+  hooks:
+  - id: typos
+    args: []
+
+# ------------------------------------------------
+# LINT CHECKS
+# ------------------------------------------------
+
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: f40886d54c729f533f864ed6ce584e920feb0af7  # frozen: v1.15.0
+  hooks:
+  - id: mypy
+    additional_dependencies:
+    - toml
+    # Project dependencies
+    - boto3
+    - nbconvert
+    - pydantic
+    - pydantic-settings
+    - requests
+    - types-requests
+    - types-setuptools
+
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: 25a8c8da6c24a3b9a1a536e2674683dd0eead5d6  # frozen: v0.11.2
+  hooks:
+  - id: ruff
+    additional_dependencies:
+    # Project dependencies
+    - boto3
+    - nbconvert
+    - pydantic
+    - pydantic-settings
+    - requests
+    - types-requests
+    - types-setuptools
+
+- repo: https://github.com/PyCQA/pylint
+  rev: 7ac5a4d4f77576df3a00e63f86ca86e0e1780b47  # frozen: v3.3.6
+  hooks:
+  - id: pylint
+    additional_dependencies:
+    # Spellchecking
+    - pyenchant
+    # Project dependencies
+    - boto3
+    - nbconvert
+    - pydantic
+    - pydantic-settings
+    - requests
+    - types-requests
+    - types-setuptools
+
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: d9196b3a0a6fbc530f2bacea36c11a3b0214ff13  # frozen: v0.1.28
+  hooks:
+  - id: terraform-fmt
+  - id: tflint
+  - id: shellcheck
+    args:
+    - --enable all
+
+- repo: local
+  hooks:
+  - id: no-pylint-disable
+    name: Check that no pylint rules are disabled outside of the dedicated files
+    types:
+    - text
+    args:
+    - --multiline
+    entry: pylint.*disable=
+    language: pygrep
+    files: .py$
+    exclude: docs/source/conf.py
+
+  - id: no-noqa
+    name: Check that no noqa statements are used outside of the dedicated file
+    types:
+    - text
+    args:
+    - --multiline
+    entry: noqa
+    language: pygrep
+    files: .py$
+    exclude: docs/source/conf.py|src/lambda_functions/version_info/version_info.py
+
+  - id: no-crlf
+    name: Check that no files with CRLF line endings are committed
+    types:
+    - text
+    args:
+    - --multiline
+    entry: \r$
+    language: pygrep
