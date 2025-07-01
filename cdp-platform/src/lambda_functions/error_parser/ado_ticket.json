@@ -1,0 +1,16 @@
+{
+    "action": "create-ticket",
+    "area_path": "ics\\support",
+    "assigned_to": null,
+    "created_by": "ICS <SVC-S121291@one.merckgroup.com>",
+    "description": null,
+    "environment": null,
+    "how_found": "Automated Workflow Error Analysis",
+    "iteration_path": null,
+    "parent": "https://dev.azure.com/MerckKGaA-IT-H-Projects/ICS/_workitems/edit/100",
+    "priority": null,
+    "severity": "1 - Critical",
+    "state": "Proposed",
+    "ticket_type": "bug",
+    "title": null
+}

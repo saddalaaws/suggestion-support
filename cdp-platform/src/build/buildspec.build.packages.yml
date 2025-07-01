@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+    - echo "Running install on `date`"
+    - pip install nbconvert
+
+  build:
+    commands:
+    - export
+    - echo "Running build on `date`"
+    - cd $CODEBUILD_SRC_DIR/src/build
+    - python setup_cdp_tools.py bdist_wheel
+    - git clone "$CODEREPOSITORY_URL" "code"
+    - cd "code"
+    - $CODEBUILD_SRC_DIR/src/build/package_tasks.py
+    - rm -rf .git
+
+  post_build:
+    commands:
+    - echo "Running post_build on `date`"
+
+artifacts:
+  files:
+  - '**/*'

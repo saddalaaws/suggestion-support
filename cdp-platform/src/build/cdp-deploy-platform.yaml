@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - release/dev
+    - release/staging
+    - release/testing
+    - release/prod
+
+resources:
+  repositories:
+  - repository: pipeline-template
+    name: devops-pipeline-app
+    type: git
+
+extends:
+  template: src/infrastructure/devops-pipeline-cdp/cdp-deploy-platform.yaml@pipeline-template

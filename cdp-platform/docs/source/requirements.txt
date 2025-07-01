@@ -1,0 +1,6 @@
+recommonmark
+sphinx
+sphinx-diagrams
+sphinx-rtd-theme
+sphinxcontrib-confluencebuilder
+sphinxcontrib-napoleon

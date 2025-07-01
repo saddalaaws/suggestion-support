@@ -1,0 +1,13 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "body": [
+        {
+            "color": "Good",
+            "text": "**${subject}**\n\n${message}",
+            "type": "TextBlock",
+            "wrap": true
+        }
+    ],
+    "type": "AdaptiveCard",
+    "version": "1.4"
+}

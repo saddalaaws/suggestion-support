@@ -1,0 +1,35 @@
+{
+    "terraform": {
+        "required_providers": {
+            "archive": {
+                "source": "hashicorp/archive",
+                "version": "~> 2.7"
+            },
+            "aws": {
+                "source": "hashicorp/aws",
+                "version": "~> 5.90"
+            },
+            "dns": {
+                "source": "hashicorp/dns",
+                "version": "~> 3.4"
+            },
+            "external": {
+                "source": "hashicorp/external",
+                "version": "~> 2.3"
+            },
+            "grafana": {
+                "source": "grafana/grafana",
+                "version": "~> 3.22"
+            },
+            "null": {
+                "source": "hashicorp/null",
+                "version": "~> 3.2"
+            },
+            "random": {
+                "source": "hashicorp/random",
+                "version": "~> 3.7"
+            }
+        },
+        "required_version": "= 1.11.1"
+    }
+}
